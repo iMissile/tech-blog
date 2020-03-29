@@ -6,6 +6,7 @@ googleAnalytics = ""
 disqusShortname = ""
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
+# [Change your {blogdown} fonts](https://www.rostrum.blog/2018/11/29/fontface-lithium/)
 [permalinks]
     post = "/:year/:month/:day/:slug/"
 
