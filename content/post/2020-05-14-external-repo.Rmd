@@ -1,0 +1,20 @@
+---
+title: Занимательные внешние репозитории
+author: ''
+date: '2020-05-14'
+slug: ''
+categories: []
+tags:
+  - info
+---
+
+Различные репозитории, содержащие интересную периодику по тематике DS
+
+- [Materials for the rstudio::conf 2019 Advanced R Markdown workshop https://arm.rbind.io](https://github.com/rstudio-education/arm-workshop-rsc2019)
+- [Presentations, meetups and talks about ClickHouse https://www.youtube.com/c/ClickHouseDB](https://github.com/ClickHouse/clickhouse-presentations)
+- [Course contents for Master the Tidyverse](https://github.com/rstudio/master-the-tidyverse)
+- [rstudio/shiny-examples](https://github.com/rstudio/shiny-examples). This is a collection of Shiny examples.
+- [Sharing two #rstats functions, most days](https://github.com/sharlagelfand/twofunctionsmostdays).
+- [WinVector various examples for different articles](https://github.com/WinVector/Examples)
+- [Shiny Application to test regular expressions in R https://spannbaueradam.shinyapps.io/r…](https://github.com/AdamSpannbauer/r_regex_tester_app)
+- [Ozan Jaquette RClass](https://github.com/ozanj/rclass). UCLA assistant professor of education
