@@ -1,0 +1,55 @@
+---
+title: Подсчет длительности событий с инородными вставками внутри
+author: ''
+date: '2020-05-21'
+slug: deep_into_event
+categories:
+  - R
+tags: []
+---
+
+После сканирования карты лояльности в режиме добавления товара в логи не записывается CREP 2002 (в sample это add_item)??? Иначе какой смысл выделять сканирование карты, когда можно было бы просто считать приобретение карты обычным добавлением товара в чек?
+
+```{r загрузка исходных данных, eval=FALSE}
+base_dt <- readRDS(here::here("data", "sample_dt.Rds"))
+```
+
+```{r, eval=FALSE}
+dt <- base_dt %>%
+  select(pos_uid, timestamp, event, session_id) %>%
+  as.data.table()
+
+open_dt <- dt[event == "open"] %>%
+  .[, `:=`(event = "add_item", start = 1L)]
+  # трюк №1. open превратим только в начало (!) add_item. Первую операцию мы потом просто грубо исключим
+
+# расщепляем каждый add_item на 2 маркера -- начало и конец
+start_dt <- dt[event %chin% c("add_item", "press_66_cancel_subtotal")] %>%
+  .[, start := 1L]
+
+# сдвигаем фиктивное окончание окончание предыдущей операции "чуть-чуть" назад
+end_dt <- start_dt[event %chin% c("add_item")] %>%
+  .[, `:=`(finish = 1L, timestamp = timestamp - 0.0001, start = NULL)]
+
+dt <- list(open_dt, start_dt, end_dt) %>%
+  data.table::rbindlist(fill = TRUE) %>%
+  setorder(pos_uid, timestamp) %>%
+  .[, timeindex := as.numeric(timestamp)] %>%
+  # NA надо заменить на 0, иначе мат. логика или усложнится или сломается
+  setnafill("const", fill = 0, cols = c("start"))
+
+
+# спускаем время старта вниз
+  # -- вариант 1 протяжки времени
+  # в отсортированном списке событий протягиваем куммулятивный максимум времени, ориентируясь на INIT
+dt <- dt %>%
+  .[, time_locf := cummax(timeindex * as.numeric(start)), by = .(pos_uid)] %>%
+  .[, delta := timeindex - time_locf]
+
+# теперь оставим только записи, отмаркированные как 'finish'
+m <- dt[finish == 1L] %>%
+  # и исключаем первую запись из каждого чека (вспоминаем трюк №1)
+  .[, tail(.SD, -1), by = session_id]
+
+```
+

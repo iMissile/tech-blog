@@ -6,10 +6,20 @@
     <description>Recent content in R on A Hugo website</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 23 Jul 2015 21:13:14 -0500</lastBuildDate>
+    <lastBuildDate>Thu, 21 May 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Подсчет длительности событий с инородными вставками внутри</title>
+      <link>/2020/05/21/deep_into_event/</link>
+      <pubDate>Thu, 21 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/05/21/deep_into_event/</guid>
+      <description>После сканирования карты лояльности в режиме добавления товара в логи не записывается CREP 2002 (в sample это add_item)??? Иначе какой смысл выделять сканирование карты, когда можно было бы просто считать приобретение карты обычным добавлением товара в чек?
+base_dt &amp;lt;- readRDS(here::here(&amp;quot;data&amp;quot;, &amp;quot;sample_dt.Rds&amp;quot;))dt &amp;lt;- base_dt %&amp;gt;%select(pos_uid, timestamp, event, session_id) %&amp;gt;%as.data.table()open_dt &amp;lt;- dt[event == &amp;quot;open&amp;quot;] %&amp;gt;%.[, `:=`(event = &amp;quot;add_item&amp;quot;, start = 1L)]# трюк №1. open превратим только в начало (!</description>
+    </item>
     
     <item>
       <title>Hello R Markdown</title>

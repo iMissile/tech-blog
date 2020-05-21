@@ -1,0 +1,49 @@
+---
+title: Подсчет длительности событий с инородными вставками внутри
+author: ''
+date: '2020-05-21'
+slug: deep_into_event
+categories:
+  - R
+tags: []
+---
+
+
+
+<p>После сканирования карты лояльности в режиме добавления товара в логи не записывается CREP 2002 (в sample это add_item)??? Иначе какой смысл выделять сканирование карты, когда можно было бы просто считать приобретение карты обычным добавлением товара в чек?</p>
+<pre class="r"><code>base_dt &lt;- readRDS(here::here(&quot;data&quot;, &quot;sample_dt.Rds&quot;))</code></pre>
+<pre class="r"><code>dt &lt;- base_dt %&gt;%
+  select(pos_uid, timestamp, event, session_id) %&gt;%
+  as.data.table()
+
+open_dt &lt;- dt[event == &quot;open&quot;] %&gt;%
+  .[, `:=`(event = &quot;add_item&quot;, start = 1L)]
+  # трюк №1. open превратим только в начало (!) add_item. Первую операцию мы потом просто грубо исключим
+
+# расщепляем каждый add_item на 2 маркера -- начало и конец
+start_dt &lt;- dt[event %chin% c(&quot;add_item&quot;, &quot;press_66_cancel_subtotal&quot;)] %&gt;%
+  .[, start := 1L]
+
+# сдвигаем фиктивное окончание окончание предыдущей операции &quot;чуть-чуть&quot; назад
+end_dt &lt;- start_dt[event %chin% c(&quot;add_item&quot;)] %&gt;%
+  .[, `:=`(finish = 1L, timestamp = timestamp - 0.0001, start = NULL)]
+
+dt &lt;- list(open_dt, start_dt, end_dt) %&gt;%
+  data.table::rbindlist(fill = TRUE) %&gt;%
+  setorder(pos_uid, timestamp) %&gt;%
+  .[, timeindex := as.numeric(timestamp)] %&gt;%
+  # NA надо заменить на 0, иначе мат. логика или усложнится или сломается
+  setnafill(&quot;const&quot;, fill = 0, cols = c(&quot;start&quot;))
+
+
+# спускаем время старта вниз
+  # -- вариант 1 протяжки времени
+  # в отсортированном списке событий протягиваем куммулятивный максимум времени, ориентируясь на INIT
+dt &lt;- dt %&gt;%
+  .[, time_locf := cummax(timeindex * as.numeric(start)), by = .(pos_uid)] %&gt;%
+  .[, delta := timeindex - time_locf]
+
+# теперь оставим только записи, отмаркированные как &#39;finish&#39;
+m &lt;- dt[finish == 1L] %&gt;%
+  # и исключаем первую запись из каждого чека (вспоминаем трюк №1)
+  .[, tail(.SD, -1), by = session_id]</code></pre>

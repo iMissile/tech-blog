@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<title>Подсчет длительности событий с инородными вставками внутри - A Hugo website</title>
+<meta property="og:title" content="Подсчет длительности событий с инородными вставками внутри - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">2 min read</span>
+    
+
+    <h1 class="article-title">Подсчет длительности событий с инородными вставками внутри</h1>
+
+    
+    <span class="article-date">2020-05-21</span>
+    
+
+    <div class="article-content">
+      
+
+
+<p>После сканирования карты лояльности в режиме добавления товара в логи не записывается CREP 2002 (в sample это add_item)??? Иначе какой смысл выделять сканирование карты, когда можно было бы просто считать приобретение карты обычным добавлением товара в чек?</p>
+<pre class="r"><code>base_dt &lt;- readRDS(here::here(&quot;data&quot;, &quot;sample_dt.Rds&quot;))</code></pre>
+<pre class="r"><code>dt &lt;- base_dt %&gt;%
+  select(pos_uid, timestamp, event, session_id) %&gt;%
+  as.data.table()
+
+open_dt &lt;- dt[event == &quot;open&quot;] %&gt;%
+  .[, `:=`(event = &quot;add_item&quot;, start = 1L)]
+  # трюк №1. open превратим только в начало (!) add_item. Первую операцию мы потом просто грубо исключим
+
+# расщепляем каждый add_item на 2 маркера -- начало и конец
+start_dt &lt;- dt[event %chin% c(&quot;add_item&quot;, &quot;press_66_cancel_subtotal&quot;)] %&gt;%
+  .[, start := 1L]
+
+# сдвигаем фиктивное окончание окончание предыдущей операции &quot;чуть-чуть&quot; назад
+end_dt &lt;- start_dt[event %chin% c(&quot;add_item&quot;)] %&gt;%
+  .[, `:=`(finish = 1L, timestamp = timestamp - 0.0001, start = NULL)]
+
+dt &lt;- list(open_dt, start_dt, end_dt) %&gt;%
+  data.table::rbindlist(fill = TRUE) %&gt;%
+  setorder(pos_uid, timestamp) %&gt;%
+  .[, timeindex := as.numeric(timestamp)] %&gt;%
+  # NA надо заменить на 0, иначе мат. логика или усложнится или сломается
+  setnafill(&quot;const&quot;, fill = 0, cols = c(&quot;start&quot;))
+
+
+# спускаем время старта вниз
+  # -- вариант 1 протяжки времени
+  # в отсортированном списке событий протягиваем куммулятивный максимум времени, ориентируясь на INIT
+dt &lt;- dt %&gt;%
+  .[, time_locf := cummax(timeindex * as.numeric(start)), by = .(pos_uid)] %&gt;%
+  .[, delta := timeindex - time_locf]
+
+# теперь оставим только записи, отмаркированные как &#39;finish&#39;
+m &lt;- dt[finish == 1L] %&gt;%
+  # и исключаем первую запись из каждого чека (вспоминаем трюк №1)
+  .[, tail(.SD, -1), by = session_id]</code></pre>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+
+    
+  </body>
+</html>
+
