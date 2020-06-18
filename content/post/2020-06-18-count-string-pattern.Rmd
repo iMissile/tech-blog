@@ -1,0 +1,31 @@
+---
+title: Подсчет паттернов
+author: ''
+date: '2020-06-18'
+slug: count_string_pattern
+categories: []
+tags:
+  - R
+---
+
+```{r echo=TRUE, message=FALSE, warning=FALSE}
+library(tidyverse)
+library(stringi)
+```
+
+
+```{r}
+text <- c("A-B-C-A-B-A-B", "A-A-C-A-A-A-B", "A-A-A-A", 
+          "A-A-A", "A-B-C-A-B-C")
+
+# https://stackoverflow.com/questions/32207958/how-to-use-back-reference-with-stringi-package
+re2r::re2_count(text, "([^\\-]-[^\\-])-?")
+
+# в re2r backreference отсутствуют, см http://qinwenfeng.com/re2r_doc/re2r-syntax.html
+# re2r::re2_count("A-A-A-A", "([^\\-]-[^\\-])-\\1-?")
+
+stri_count_regex(text, "(([^\\-]-[^\\-]).+\\2)")
+stri_extract_all_regex(text, "([^\\-]-[^\\-])-\\1")
+# m <- stri_match_all_regex(text, "(([^\\-]-[^\\-]).+\\2)")
+```
+

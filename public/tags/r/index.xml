@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on A Hugo website</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on A Hugo website</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Thu, 18 Jun 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Подсчет паттернов</title>
+      <link>/2020/06/18/count_string_pattern/</link>
+      <pubDate>Thu, 18 Jun 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/06/18/count_string_pattern/</guid>
+      <description>library(tidyverse)library(stringi)text &amp;lt;- c(&amp;quot;A-B-C-A-B-A-B&amp;quot;, &amp;quot;A-A-C-A-A-A-B&amp;quot;, &amp;quot;A-A-A-A&amp;quot;, &amp;quot;A-A-A&amp;quot;, &amp;quot;A-B-C-A-B-C&amp;quot;)# https://stackoverflow.com/questions/32207958/how-to-use-back-reference-with-stringi-packagere2r::re2_count(text, &amp;quot;([^\\-]-[^\\-])-?&amp;quot;)## [1] 3 3 2 1 3# в re2r backreference отсутствуют, см http://qinwenfeng.com/re2r_doc/re2r-syntax.html# re2r::re2_count(&amp;quot;A-A-A-A&amp;quot;, &amp;quot;([^\\-]-[^\\-])-\\1-?&amp;quot;)stri_count_regex(text, &amp;quot;(([^\\-]-[^\\-]).+\\2)&amp;quot;)## [1] 1 1 1 0 1stri_extract_all_regex(text, &amp;quot;([^\\-]-[^\\-])-\\1&amp;quot;)## [[1]]## [1] &amp;quot;A-B-A-B&amp;quot;## ## [[2]]## [1] NA## ## [[3]]## [1] &amp;quot;A-A-A-A&amp;quot;## ## [[4]]## [1] NA## ## [[5]]## [1] NA# m &amp;lt;- stri_match_all_regex(text, &amp;quot;(([^\\-]-[^\\-]).</description>
+    </item>
+    
+  </channel>
+</rss>

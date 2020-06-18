@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Hugo 0.68.3" />
+
+
+<title>Подсчет паттернов - A Hugo website</title>
+<meta property="og:title" content="Подсчет паттернов - A Hugo website">
+
+
+  <link href='/favicon.ico' rel='icon' type='image/x-icon'/>
+
+
+
+  
+
+
+
+
+
+
+
+
+<link href='//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css' rel='stylesheet' type='text/css' />
+
+
+
+<link rel="stylesheet" href="/css/fonts.css" media="all">
+<link rel="stylesheet" href="/css/main.css" media="all">
+
+
+
+  </head>
+  <body>
+    <div class="wrapper">
+      <header class="header">
+        <nav class="nav">
+  <a href="/" class="nav-logo">
+    <img src="/images/logo.png"
+         width="50"
+         height="50"
+         alt="Logo">
+  </a>
+
+  <ul class="nav-links">
+    
+    <li><a href="/about/">About</a></li>
+    
+    <li><a href="https://github.com/rstudio/blogdown">GitHub</a></li>
+    
+    <li><a href="https://twitter.com/rstudio">Twitter</a></li>
+    
+  </ul>
+</nav>
+
+      </header>
+
+
+<main class="content" role="main">
+
+  <article class="article">
+    
+    <span class="article-duration">1 min read</span>
+    
+
+    <h1 class="article-title">Подсчет паттернов</h1>
+
+    
+    <span class="article-date">2020-06-18</span>
+    
+
+    <div class="article-content">
+      
+
+
+<pre class="r"><code>library(tidyverse)
+library(stringi)</code></pre>
+<pre class="r"><code>text &lt;- c(&quot;A-B-C-A-B-A-B&quot;, &quot;A-A-C-A-A-A-B&quot;, &quot;A-A-A-A&quot;, 
+          &quot;A-A-A&quot;, &quot;A-B-C-A-B-C&quot;)
+
+# https://stackoverflow.com/questions/32207958/how-to-use-back-reference-with-stringi-package
+re2r::re2_count(text, &quot;([^\\-]-[^\\-])-?&quot;)</code></pre>
+<pre><code>## [1] 3 3 2 1 3</code></pre>
+<pre class="r"><code># в re2r backreference отсутствуют, см http://qinwenfeng.com/re2r_doc/re2r-syntax.html
+# re2r::re2_count(&quot;A-A-A-A&quot;, &quot;([^\\-]-[^\\-])-\\1-?&quot;)
+
+stri_count_regex(text, &quot;(([^\\-]-[^\\-]).+\\2)&quot;)</code></pre>
+<pre><code>## [1] 1 1 1 0 1</code></pre>
+<pre class="r"><code>stri_extract_all_regex(text, &quot;([^\\-]-[^\\-])-\\1&quot;)</code></pre>
+<pre><code>## [[1]]
+## [1] &quot;A-B-A-B&quot;
+## 
+## [[2]]
+## [1] NA
+## 
+## [[3]]
+## [1] &quot;A-A-A-A&quot;
+## 
+## [[4]]
+## [1] NA
+## 
+## [[5]]
+## [1] NA</code></pre>
+<pre class="r"><code># m &lt;- stri_match_all_regex(text, &quot;(([^\\-]-[^\\-]).+\\2)&quot;)</code></pre>
+
+    </div>
+  </article>
+
+  
+
+
+</main>
+
+      <footer class="footer">
+        <ul class="footer-links">
+          <li>
+            <a href="/index.xml" type="application/rss+xml" target="_blank">RSS feed</a>
+          </li>
+          <li>
+            <a href="https://gohugo.io/" class="footer-links-kudos">Made with <img src="/images/hugo-logo.png" alt="Img link to Hugo website" width="22" height="22"></a>
+          </li>
+        </ul>
+      </footer>
+
+    </div>
+    
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+
+
+
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/r.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/yaml.min.js"></script>
+<script>hljs.configure({languages: []}); hljs.initHighlightingOnLoad();</script>
+
+
+
+    
+<script src="/js/math-code.js"></script>
+<script async src="//cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
+
+    
+  </body>
+</html>
+
