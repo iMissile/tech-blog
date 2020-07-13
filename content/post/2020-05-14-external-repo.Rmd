@@ -12,6 +12,7 @@ tags:
 
 - [Materials for rstudio::conf](https://github.com/rstudio/rstudio-conf). Materials for rstudio::conf
 - [Materials for the rstudio::conf 2019 Advanced R Markdown workshop https://arm.rbind.io](https://github.com/rstudio-education/arm-workshop-rsc2019)
+- [TidyTuesday. A weekly social data project in R](https://github.com/rfordatascience)
 - [Presentations, meetups and talks about ClickHouse https://www.youtube.com/c/ClickHouseDB](https://github.com/ClickHouse/clickhouse-presentations)
 - [Course contents for Master the Tidyverse](https://github.com/rstudio/master-the-tidyverse)
 - [rstudio/shiny-examples](https://github.com/rstudio/shiny-examples). This is a collection of Shiny examples.

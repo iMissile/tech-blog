@@ -37,7 +37,7 @@ base_dt &amp;lt;- readRDS(here::here(&amp;quot;data&amp;quot;, &amp;quot;sample_
       
       <guid>/2020/05/14/%D0%B7%D0%B0%D0%BD%D0%B8%D0%BC%D0%B0%D1%82%D0%B5%D0%BB%D1%8C%D0%BD%D1%8B%D0%B5-%D0%B2%D0%BD%D0%B5%D1%88%D0%BD%D0%B8%D0%B5-%D1%80%D0%B5%D0%BF%D0%BE%D0%B7%D0%B8%D1%82%D0%BE%D1%80%D0%B8%D0%B8/</guid>
       <description>Различные репозитории, содержащие интересную периодику по тематике DS
-Materials for rstudio::conf. Materials for rstudio::confMaterials for the rstudio::conf 2019 Advanced R Markdown workshop https://arm.rbind.ioPresentations, meetups and talks about ClickHouse https://www.youtube.com/c/ClickHouseDBCourse contents for Master the Tidyverserstudio/shiny-examples. This is a collection of Shiny examples.Sharing two #rstats functions, most days.WinVector various examples for different articlesShiny Application to test regular expressions in R https://spannbaueradam.shinyapps.io/r…Ozan Jaquette RClass.</description>
+Materials for rstudio::conf. Materials for rstudio::confMaterials for the rstudio::conf 2019 Advanced R Markdown workshop https://arm.rbind.ioTidyTuesday. A weekly social data project in RPresentations, meetups and talks about ClickHouse https://www.youtube.com/c/ClickHouseDBCourse contents for Master the Tidyverserstudio/shiny-examples. This is a collection of Shiny examples.Sharing two #rstats functions, most days.WinVector various examples for different articlesShiny Application to test regular expressions in R https://spannbaueradam.</description>
     </item>
     
     <item>
