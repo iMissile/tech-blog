@@ -22,6 +22,7 @@ tags:
 - [Ozan Jaquette RClass](https://github.com/ozanj/rclass). UCLA assistant professor of education
 - [Unleash-Shiny. R/Pharma workshop](https://github.com/RinteRface/Unleash-Shiny.git)
 - [Materials for the "Advanced Shiny" course at Swiss Institute of Bioinformatics](https://github.com/rstudio-education/advanced-shiny-sib.git).
-- [R for data science: a book r4ds.had.co.nz/](https://github.com/hadley/r4ds.git)
-- [R & stats illustrations by @allison_horst](https://github.com/allisonhorst/stats-illustrations.git)
+- [R for data science: a book r4ds.had.co.nz](https://github.com/hadley/r4ds.git)
+- [R & stats illustrations by \@allison_horst](https://github.com/allisonhorst/stats-illustrations.git)
 - [Lisa Charlotte Rost. (Almost) all my talks as GIFs and PDFs.](https://github.com/lisacharlotterost/talk-slides.git)
+- [SDS 375 Data Visualization in R](https://github.com/wilkelab/SDS375.git)
