@@ -8,6 +8,8 @@ tags:
   - info
 ---
 
+
+# DS
 Различные репозитории, содержащие интересную периодику по тематике DS
 
 - [Materials for rstudio::conf](https://github.com/rstudio/rstudio-conf). Materials for rstudio::conf
@@ -15,14 +17,24 @@ tags:
 - [TidyTuesday](https://github.com/rfordatascience/tidytuesday.git). A weekly social data project in R
 - [Presentations, meetups and talks about ClickHouse https://www.youtube.com/c/ClickHouseDB](https://github.com/ClickHouse/clickhouse-presentations)
 - [Course contents for Master the Tidyverse](https://github.com/rstudio/master-the-tidyverse)
-- [rstudio/shiny-examples](https://github.com/rstudio/shiny-examples). This is a collection of Shiny examples.
 - [Sharing two #rstats functions, most days](https://github.com/sharlagelfand/twofunctionsmostdays).
 - [WinVector various examples for different articles](https://github.com/WinVector/Examples)
-- [Shiny Application to test regular expressions in R https://spannbaueradam.shinyapps.io/r…](https://github.com/AdamSpannbauer/r_regex_tester_app)
 - [Ozan Jaquette RClass](https://github.com/ozanj/rclass). UCLA assistant professor of education
-- [Unleash-Shiny. R/Pharma workshop](https://github.com/RinteRface/Unleash-Shiny.git)
-- [Materials for the "Advanced Shiny" course at Swiss Institute of Bioinformatics](https://github.com/rstudio-education/advanced-shiny-sib.git).
 - [R for data science: a book r4ds.had.co.nz](https://github.com/hadley/r4ds.git)
 - [R & stats illustrations by \@allison_horst](https://github.com/allisonhorst/stats-illustrations.git)
 - [Lisa Charlotte Rost. (Almost) all my talks as GIFs and PDFs.](https://github.com/lisacharlotterost/talk-slides.git)
 - [SDS 375 Data Visualization in R](https://github.com/wilkelab/SDS375.git)
+
+# Shiny
+- [Unleash-Shiny. R/Pharma workshop](https://github.com/RinteRface/Unleash-Shiny.git)
+- [Materials for the "Advanced Shiny" course at Swiss Institute of Bioinformatics](https://github.com/rstudio-education/advanced-shiny-sib.git).
+- [rstudio/shiny-examples](https://github.com/rstudio/shiny-examples). This is a collection of Shiny examples.
+- [ShinyApps application of a movie recommendation system](https://github.com/jeknov/movieRec.git)
+- [Shiny Application to test regular expressions in R https://spannbaueradam.shinyapps.io/r…](https://github.com/AdamSpannbauer/r_regex_tester_app)
+
+# Onboard
+- [Android: Netrunner cards translation](https://github.com/translate-board-game/netrunner.git)
+
+# Tools
+
+
