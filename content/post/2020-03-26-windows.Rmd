@@ -30,6 +30,7 @@ tags:
 - [Windows Hotkey Explorer]()
 
 # Работа с файлами
+- [AirExplorer]()
 - [Archivarius 3000]()
 - [AstroGrep]()
 - [Atom]()
@@ -50,7 +51,9 @@ tags:
 - [LogExpert]()
 - [mTail]()
 - [mTorrent]()
+- [Obsidian]()
 - [ORPALIS PDF Reducer Pro 3]()
+- [PDFsam Basic](https://pdfsam.org/pdfsam-basic/) - a free, open source, multi-platform software designed to split, merge, extract pages, mix and rotate PDF files.
 - [PowerShell]()
 - [Recuva]()
 - [Rename-It!]()
@@ -117,7 +120,6 @@ tags:
 - [XnView]()
 
 # ПО общего назначения
-
 - [ABBYY FineReader 11]()
 - [Acrobat Reader DC]()
 - [Aurora HDR 2018]()
